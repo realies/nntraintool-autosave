@@ -31,26 +31,26 @@ $vOutputLocation = $CmdLine[1]
 For $vKey In $oDictionary
  $hWindow = WinGetHandle($oDictionary.Item($vKey))
  If Not $hWindow Then
-  MsgBox(16, $vAppId & ": Error", $vKey & " handle not found")
+  MsgBox(16, $vAppId & ": Error", 'WinGetHandle("' & $oDictionary.Item($vKey) & '") failed')
   Exit 1
  EndIf
 
  $vActivate = WinActivate($hWindow)
  If Not $vActivate Then
-  MsgBox(16, $vAppId & ": Error", 'WinActivate("' & $vKey & '") failed')
+  MsgBox(16, $vAppId & ": Error", 'WinActivate("' & $oDictionary.Item($vKey) & '") failed')
   Exit 1
  EndIf
 
  $vWaitActive = WinWaitActive($hWindow, "", $vGuiWait)
  If Not $vWaitActive Then
-  MsgBox(16, $vAppId & ": Error", 'WinWaitActive("' & $vKey & '", "", ' & $vGuiWait & ') failed')
+  MsgBox(16, $vAppId & ": Error", 'WinWaitActive("' & $oDictionary.Item($vKey) & '", "", ' & $vGuiWait & ') failed')
   Exit 1
  EndIf
 
  If $vKey = "nntraintool.png" Then
   _ScreenCapture_CaptureWnd($vOutputLocation & "nntraintool.png", $hWindow)
   If @error Then
-   MsgBox(16, $vAppId & ": Error", '_ScreenCapture_CaptureWnd("' & $vOutputLocation & "nntraintool.png" & '", "nntraintool.png") failed')
+   MsgBox(16, $vAppId & ": Error", '_ScreenCapture_CaptureWnd("' & $vOutputLocation & "nntraintool.png" & '", "' & $oDictionary.Item($vKey) & '") failed')
    Exit 1
   EndIf
  Else
@@ -58,7 +58,7 @@ For $vKey In $oDictionary
 
   $vSetState = WinSetState($hWindow, "", @SW_MAXIMIZE)
   If Not $vSetState Then
-   MsgBox(16, $vAppId & ": Error", 'WinSetState("' & $vKey & '", "", @SW_MAXIMIZE) failed')
+   MsgBox(16, $vAppId & ": Error", 'WinSetState("' & $oDictionary.Item($vKey) & '", "", @SW_MAXIMIZE) failed')
    Exit 1
   EndIf
 
@@ -78,7 +78,7 @@ For $vKey In $oDictionary
 
   $vSetText = ControlSetText($hSaveAs, "", "[CLASS:Edit; INSTANCE:1]", $vOutputLocation & $vKey)
   If Not $vSetText Then
-   MsgBox(16, $vAppId & ": Error", 'ControlSetText("Save As", "", "[CLASS:Edit; INSTANCE:1]", $vOutputLocation & $vKey) failed')
+   MsgBox(16, $vAppId & ": Error", 'ControlSetText("Save As", "", "[CLASS:Edit; INSTANCE:1]", "' & $vOutputLocation & $vKey & '") failed')
    Exit 1
   EndIf
 
@@ -90,7 +90,7 @@ For $vKey In $oDictionary
 
   $vSetState = WinSetState($hWindow, "", @SW_MINIMIZE)
   If Not $vSetState Then
-   MsgBox(16, $vAppId & ": Error", 'WinSetState("' & $vKey & '", "", @SW_MINIMIZE) failed')
+   MsgBox(16, $vAppId & ": Error", 'WinSetState("' & $oDictionary.Item($vKey) & '", "", @SW_MINIMIZE) failed')
    Exit 1
   EndIf
 
